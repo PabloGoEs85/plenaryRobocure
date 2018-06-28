@@ -18,7 +18,4 @@ int8 q9_response
 int8 q10_response
 int8 q11_response
 int8 q12_response
-int8 q13_response
-int8 q14_response
-int8 q15_response
 int8 flag_response

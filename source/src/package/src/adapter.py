@@ -14,26 +14,35 @@ def sendPersonality(request):
 	global personality
 	global personality_profile
 	#depending on the mode we choose
-	#15-30 full introvert; 30-41 slightly introvert; 41-49 ambivert ;49-60 slighlty extrovert ; 60-75 full extrovert
+	#12-26 full introvert; 27-41 slightly introvert; 42-54 ambivert ;55-69 slighlty extrovert ; 70-84 full extrovert
 	
-	#extraversion + agreeableness (15+15) / extraversion + agreeableness + neuroticism + openness + conscientiousness (15*5)
-	if (personality <= 12):
+	#extraversion + agreeableness
+	if (personality <= 26):
 		personality_profile = -1.0 #full introvert
-	elif (personality <= 16): #slightly introvert
+	elif (personality <= 41): #slightly introvert
 		personality_profile = -0.5
-	elif (personality <= 20):
+	elif (personality <= 54):
 		personality_profile = 0.0 #ambivert
-	elif (personality <= 24):
+	elif (personality <= 69):
 		personality_profile = 0.5 #slightly extrovert
 	else:
 		personality_profile = 1.0 #full extrovert
 
 	if (flag == 2): #complementary
-		personality_profile = personality_profile*(-1)
-
+		if (personality_profile !=0.0):
+			personality_profile = personality_profile*(-1)
+		else:
+			randPersonality = random.randint(1,2) #if 2, it stays as ambivert. If 1, randomizes between fully extrovert or fully introvert
+			if (randPersonality == 1):
+				randFully = random.randint(1,2)
+				if (randFully == 1):
+					personality_profile = 1.0 #full extrovert
+				else:
+					personality_profile = -1.0 #full introvert	
+	flag_profile = flag
 	#personality_profile = 1.0 #testing purposes
 
-	return PersonalityResponse(personality_profile)
+	return PersonalityResponse(personality_profile, flag_profile)
 
 def main():
 	global personality
@@ -44,21 +53,18 @@ def main():
 		#Gets data from service sent (my case I will need to get responses from questionnaire)
 		questionnaireClient = rospy.ServiceProxy('questionnaire', Questionnaire)
 		questionnaireToProfile = questionnaireClient()		
-		question1 = questionnaireToProfile.q1_response
-		question2 = 6-questionnaireToProfile.q2_response
-		question3 = questionnaireToProfile.q3_response
-		question4 = 6-questionnaireToProfile.q4_response
-		question5 = questionnaireToProfile.q5_response
-		question6 = 6-questionnaireToProfile.q6_response
-		question7 = questionnaireToProfile.q7_response
-		question8 = 6-questionnaireToProfile.q8_response
-		question9 = questionnaireToProfile.q9_response
-		question10 = 6-questionnaireToProfile.q10_response
-		question11 = questionnaireToProfile.q11_response
-		question12 = 6-questionnaireToProfile.q12_response
-		question13 = questionnaireToProfile.q13_response
-		question14 = 6-questionnaireToProfile.q14_response
-		question15 = questionnaireToProfile.q15_response
+		question1 = questionnaireToProfile.q1_response #E1
+		question2 = questionnaireToProfile.q2_response #E2
+		question3 = 8-questionnaireToProfile.q3_response #E3*
+		question4 = questionnaireToProfile.q4_response #E4
+		question5 = 8-questionnaireToProfile.q5_response #E5*
+		question6 = 8-questionnaireToProfile.q6_response #E6*
+		question7 = questionnaireToProfile.q7_response #A1
+		question8 = 8-questionnaireToProfile.q8_response #A2*
+		question9 = 8-questionnaireToProfile.q9_response #A3*
+		question10 = 8-questionnaireToProfile.q10_response #A4*
+		question11 = questionnaireToProfile.q11_response #A5
+		question12 = questionnaireToProfile.q12_response #A6
 		flag = questionnaireToProfile.flag_response
 
 	except rospy.ServiceException, e:
@@ -76,11 +82,11 @@ def main():
 	#testing purposes
 
 	#compute personality + send profile to actuation and reactive
-	extraversion = question1+question6+question11
+	extraversion = question1+question2+question3+question4+question5+question6
 #	neuroticism = question2+ question7+question12
 #	openness = question3+question8+question13
 #	conscientiousness = question4+question9+question14
-	agreeableness = question5+question10+question15
+	agreeableness = question7+question8+question9+question10+question11+question12
 
 #	personality = extraversion + neuroticism + openness + conscientiousness + agreeableness
 	personality = extraversion + agreeableness

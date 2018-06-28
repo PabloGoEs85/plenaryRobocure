@@ -18,9 +18,6 @@ def launchSystem():
 		global e10
 		global e11
 		global e12
-		global e13
-		global e14
-		global e15	
 		global CKsimilarity
 
 		entry1 = int(e1.get())
@@ -35,41 +32,42 @@ def launchSystem():
 		entry10 = int(e10.get())
 		entry11 = int(e11.get())
 		entry12 = int(e12.get())
-		entry13 = int(e13.get())
-		entry14 = int(e14.get())
-		entry15 = int(e15.get())
 
 		flag = int(CKsimilarity.get())
 
-		return QuestionnaireResponse(entry1,entry2,entry3,entry4,entry5,entry6,entry7,entry8,entry9,entry10,entry11,entry12,entry13,entry14,entry15,flag)
+		return QuestionnaireResponse(entry1,entry2,entry3,entry4,entry5,entry6,entry7,entry8,entry9,entry10,entry11,entry12,flag)
 	
 	
 	def sendCommand(command_request):
 		global tabletDone
 		global eID
 		if(tabletDone):
-			command_response = 2
-	
+			command_response = 2 #start system
+			print "tabletDone"	
 		else: 
-			command_response = 1
-			tabletDone = True
+			print "tabletDone FALSE"
+			command_response = 1 #initiates personality quiz
+			#tabletDone = True
 		command_quiz = int(eID.get())
 		return GUICommandResponse(command_response, command_quiz)
 	
 	global paperBased
 	global tabletDone
-	
+ 	
+
 	#disables Q1 to Q15, CBtablet, CBsimilarity and ID
 	editEntries('disabled')
 
 	#launch system sending Q1 to Q15 and similarity flag --> to adapter - actuation? or some coordinator
 	if (paperBased):
+		print "paperBased"
 		srvGUIAdapterServer = rospy.Service('questionnaire', Questionnaire, sendQuestionnaire)
 		tabletDone = True
 		srvGUIActuationServer = rospy.Service('GUICommand', GUICommand, sendCommand)
-#	else: 
-#		tabletDone = False
-#		srvGUIActuationServer = rospy.Service('GUIcommand', StartStop, sendCommand)
+	else: 
+		print "paperBased FALSE"
+		tabletDone = False
+		srvGUIActuationServer = rospy.Service('GUICommand', GUICommand, sendCommand)
 		#waits for feedback from quiz
 		#rospy.wait_for_service('QuizFeedback')
 		#try:
@@ -80,7 +78,7 @@ def launchSystem():
 		#except rospy.ServiceException, e:
 		#	print "profile call failed: %s"%e
 		#then sets tabletDone = True and calls again
-#		tabletDone = True
+		#tabletDone = True
 #		srvGUIActuationServer = rospy.Service('GUIcommand', StartStop, sendCommand)
 def editEntries(status):
 	global e1
@@ -95,9 +93,6 @@ def editEntries(status):
 	global e10
 	global e11
 	global e12
-	global e13
-	global e14
-	global e15
 	global eID
 
 	e1.pack_forget()
@@ -147,22 +142,6 @@ def editEntries(status):
 	e12.pack_forget()
 	e12.config(state=status)
 	e12.grid(row=11, column=1)
-	
-	e13.pack_forget()
-	e13.config(state=status)
-	e13.grid(row=12, column=1)
-
-	e14.pack_forget()
-	e14.config(state=status)
-	e14.grid(row=13, column=1)
-
-	e15.pack_forget()
-	e15.config(state=status)
-	e15.grid(row=14, column=1)
-
-	eID.pack_forget()
-	eID.config(state=status)
-	eID.grid(row=4, column=3)
 
 def tabletVSpaper():
 	#disables CBtablet from now on
@@ -173,7 +152,8 @@ def tabletVSpaper():
 		print "quizzzz"
 		editEntries('disabled')
 		paperBased = False
-		launchSystem()
+		tabletDone = False
+		#launchSystem()
 	elif (CBtablet.get()==2): #paper --> enables questions + similar/complementary + go button
 		paperBased = True	
 		editEntries('normal')
@@ -195,9 +175,6 @@ def main():
 	global e10
 	global e11
 	global e12
-	global e13
-	global e14
-	global e15
 	global eID
 
 #fileObject = open("GuiLog.txt","w")
@@ -231,27 +208,22 @@ def main():
 	Label(frameUpL, text="Q10").grid(row=9, column=0)
 	Label(frameUpL, text="Q11").grid(row=10, column=0)
 	Label(frameUpL, text="Q12").grid(row=11, column=0)
-	Label(frameUpL, text="Q13").grid(row=12, column=0)
-	Label(frameUpL, text="Q14").grid(row=13, column=0)
-	Label(frameUpL, text="Q15").grid(row=14, column=0)
 
-	e1 = Entry(frameUpL)
-	e2 = Entry(frameUpL)
-	e3 = Entry(frameUpL)
-	e4 = Entry(frameUpL)
-	e5 = Entry(frameUpL)
-	e6 = Entry(frameUpL)
-	e7 = Entry(frameUpL)
-	e8 = Entry(frameUpL)
-	e9 = Entry(frameUpL)
-	e10 = Entry(frameUpL)
-	e11 = Entry(frameUpL)
-	e12 = Entry(frameUpL)
-	e13 = Entry(frameUpL)
-	e14 = Entry(frameUpL)
-	e15 = Entry(frameUpL)
-	eID = Entry(frameUpL)
+	e1 = Entry(frameUpL, text="2")
+	e2 = Entry(frameUpL, text="2")
+	e3 = Entry(frameUpL, text="2")
+	e4 = Entry(frameUpL, text="2")
+	e5 = Entry(frameUpL, text="2")
+	e6 = Entry(frameUpL, text="2")
+	e7 = Entry(frameUpL, text="2")
+	e8 = Entry(frameUpL, text="2")
+	e9 = Entry(frameUpL, text="2")
+	e10 = Entry(frameUpL, text="2")
+	e11 = Entry(frameUpL, text="2")
+	e12 = Entry(frameUpL, text="2")
 
+	eID = Entry(frameUpL, text="3")
+	eID.grid(row=4, column=3)
 	editEntries('disabled')
 	
 	Radiobutton(frameUpL, variable=CBtablet, value = 1, text="Tablet", command=tabletVSpaper).grid(row=2, column=2)
@@ -262,8 +234,8 @@ def main():
 	Radiobutton(frameUpL, variable=CKsimilarity, value = 1, text="Similar").grid(row=6, column=2)
 	Radiobutton(frameUpL, variable=CKsimilarity, value = 2, text="Complementary").grid(row=7, column=2)
 
-	bGo = Button(frameUpL, text='Go', command=launchSystem,state='normal')
-	bGo.grid(row=1, column = 2)
+#	bGo = Button(frameUpL, text='Go', command=launchSystem,state='normal')
+#	bGo.grid(row=1, column = 2)
 		
 	frameDoR = Frame(window,width = int(0.2*widthScreen),height = int(0.2*heightScreen))
 	frameDoR.grid(row = 0, column = 1)
@@ -271,7 +243,7 @@ def main():
 	
     ##### BUTTON #####
 	button = Button(frameDoR,text = "Next",font = ('',int(15.0/768.0*heightScreen), "bold"),\
-                    command = window.destroy,width = int(0.01*widthScreen),height = int(0.001*heightScreen))
+                    command=launchSystem,width = int(0.01*widthScreen),height = int(0.001*heightScreen))
 	button.pack(side = "bottom")
 
     ##### GRAPHICAL INTERFACE + ROBOT BEHAVIOR TOGETHER #####

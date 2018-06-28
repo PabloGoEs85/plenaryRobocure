@@ -537,7 +537,26 @@ def startIdle():
 def scriptManager(): #manages the script
 	global finish
 	global quizFromGUI
+	global flagFromAdapter
+	firstQuiz = 0
+	secondQuiz = 0
+	thirdQuiz = 0
+	
+	if (flagFromAdapter == 0): #neutral
+			script = "brusselsquiz-247835/behavior_1"
+	elif (flagFromAdapter == 1): #similar
+			script = "chocquiz-247834/behavior_1"
+	elif (flagFromAdapter == 2): #complementary
+			script = "sportsquiz-247836/behavior_1"
+
 	print "Script Manager %d" %quizFromGUI
+	behaviorService = session.service("ALBehaviorManager")
+#	behaviorService.stopAllBehaviors()
+	behaviorService.runBehavior(script) 
+#	if(behaviorService.isBehaviorInstalled(behavior)):
+#		result = behaviorService.startBehavior(behavior) 
+#	else: 
+#		print "No such behavior installed"	
 	#launches random quiz but keeps track of which
 	time.sleep(5)
 	finish = True
@@ -550,6 +569,7 @@ def main(session):
 
 	global finish
 	global profileFromAdapter
+	global flagFromAdapter
 	global quizFromGUI
 	rospy.init_node('actuation')
 
@@ -559,12 +579,44 @@ def main(session):
 		guiCommand = guiClient()
 		commandFromGUI = guiCommand.command_response
 		quizFromGUI = guiCommand.command_quiz
+		print "command..."
 		if (commandFromGUI == 1): #launches personality quiz
 			print "launches quiz actuation"
+			behaviorService = session.service("ALBehaviorManager")
+#			behaviorService.stopAllBehaviors()
+			behaviorService.runBehavior("personalityquiz-247837/behavior_1")
+			time.sleep(3)
+			while(behaviorService.isBehaviorRunning("personalityquiz-247837/behavior_1")):
+			#	notFinished = True
+				print "still running"
+				time.sleep(3)
+			print "finished"
+			#while(notFinished):
+			#	memoryService = session.service("ALMemory")
+				#read data from memory
+			#	for w in answers:			
+			#		if (answers[w] == 0):					
+			#			key = "q"+w
+			#			answers[w] = memoryService.getData("q1")
+#				vector with all the answers
+				#checks whether the last question has been answered. If yes, notFinished = False, otherwise, it starts over.
+				
 			#reads info from memory and sends it back to gui
 			#srvActuationToGUIServer = rospy.Service('questionnaire', Questionnaire, sendQuestionnaire)
 		elif (commandFromGUI == 2): #starts system
 			print "launches system"
+			rospy.wait_for_service('adapterPersonality')
+			try:
+				profileClient = rospy.ServiceProxy('adapterPersonality', Personality)
+				profile = profileClient()
+				profileFromAdapter = profile.personality_profile
+				flagFromAdapter = profile.flag_profile
+
+				print "Actuation got profile: %s"%profileFromAdapter
+
+			except rospy.ServiceException, e:
+				print "profile call failed: %s"%e
+
 			#thread to run idle behaviors
 #			tIdle = threading.Thread(target=startIdle)
 #			tIdle.start()
@@ -581,17 +633,7 @@ def main(session):
 	except rospy.ServiceException, e:
 		print "profile call failed: %s"%e
 
-	rospy.wait_for_service('adapterPersonality')
-	try:
-		profileClient = rospy.ServiceProxy('adapterPersonality', Personality)
-		profile = profileClient()
-		profileFromAdapter = profile.personality_profile
-
-		print "Actuation got profile: %s"%profileFromAdapter
-
-	except rospy.ServiceException, e:
-		print "profile call failed: %s"%e
-
+	
 	rospy.spin()
 
 if __name__ == "__main__":

@@ -9,3 +9,4 @@ bool personality_request
 #           role ->       1 = peer;  2 = tutor
 #
 float32 personality_profile
+float32 flag_profile
