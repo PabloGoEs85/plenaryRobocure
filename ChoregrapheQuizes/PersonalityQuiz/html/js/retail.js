@@ -163,21 +163,31 @@ function nextQuestion(my_answer){
 		document.getElementById("7").innerHTML=my_question.answers.a7;
 	
 	} else {
-		showResults();
+//		showResults();
+		document.getElementById("question-view").style.display="none";		
+		document.getElementById("code-view").style.display="block";
+		memDataName = "PQFinish"
+		mem.insertData(memDataName, my_answer)
 	}
 }
 
 
 function showResults(){
 //Needs to notify when the interaction is finished
-	mem.raiseEvent("PersonalityQuizFinish", 1);
-	document.getElementById("feedback-view").style.display="none";				
+	//mem.raiseEvent("PersonalityQuizFinish", 1);
+
+	document.getElementById("question-view").style.display="none";		
 	document.getElementById("code-view").style.display="block";
-	document.getElementById("correct-ans").innerHTML="You answered correcty " + correctAns.toString() + " out of 10 questions";
-	var d = new Date();
-	var n = d.toString();
-	document.getElementById("inputTextToSave").value = correctAns.toString()+ " " + startTime+ " " + d;
-	saveTextAsFile();
+//	document.getElementById("correct-ans").innerHTML="You answered correcty " + correctAns.toString() + " out of 10 questions";
+	
+	//var memDataNameF = "PQFinish";
+
+//	mem.insertData(memDataNameF, 1);	
+
+//	var d = new Date();
+//	var n = d.toString();
+//	document.getElementById("inputTextToSave").value = correctAns.toString()+ " " + startTime+ " " + d;
+//	saveTextAsFile();
 }
 
 

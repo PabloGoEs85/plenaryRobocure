@@ -34,13 +34,15 @@ def launchSystem():
 		entry12 = int(e12.get())
 
 		flag = int(CKsimilarity.get())
+		personality = int(ePersonality.get())
 
-		return QuestionnaireResponse(entry1,entry2,entry3,entry4,entry5,entry6,entry7,entry8,entry9,entry10,entry11,entry12,flag)
+		return QuestionnaireResponse(entry1,entry2,entry3,entry4,entry5,entry6,entry7,entry8,entry9,entry10,entry11,entry12,flag,personality)
 	
 	
 	def sendCommand(command_request):
 		global tabletDone
 		global eID
+		global ePersonality
 		if(tabletDone):
 			command_response = 2 #start system
 			print "tabletDone"	
@@ -49,6 +51,7 @@ def launchSystem():
 			command_response = 1 #initiates personality quiz
 			#tabletDone = True
 		command_quiz = int(eID.get())
+
 		return GUICommandResponse(command_response, command_quiz)
 	
 	global paperBased
@@ -68,15 +71,6 @@ def launchSystem():
 		print "paperBased FALSE"
 		tabletDone = False
 		srvGUIActuationServer = rospy.Service('GUICommand', GUICommand, sendCommand)
-		#waits for feedback from quiz
-		#rospy.wait_for_service('QuizFeedback')
-		#try:
-		#	quizFeedbackClient = rospy.ServiceProxy('QuizFeedback', Questionnaire)
-		#	quizFeedback = quizFeedbackClient()
-		#	quizFeedbackFromGUI = quizFeedback.command_response
-			
-		#except rospy.ServiceException, e:
-		#	print "profile call failed: %s"%e
 		#then sets tabletDone = True and calls again
 		#tabletDone = True
 #		srvGUIActuationServer = rospy.Service('GUIcommand', StartStop, sendCommand)
@@ -93,7 +87,6 @@ def editEntries(status):
 	global e10
 	global e11
 	global e12
-	global eID
 
 	e1.pack_forget()
 	e1.config(state=status)
@@ -176,6 +169,7 @@ def main():
 	global e11
 	global e12
 	global eID
+	global ePersonality
 
 #fileObject = open("GuiLog.txt","w")
 	rospy.init_node("gui")
@@ -224,6 +218,10 @@ def main():
 
 	eID = Entry(frameUpL, text="3")
 	eID.grid(row=4, column=3)
+
+	ePersonality = Entry(frameUpL, text="0")
+	ePersonality.grid(row=8, column=3)
+
 	editEntries('disabled')
 	
 	Radiobutton(frameUpL, variable=CBtablet, value = 1, text="Tablet", command=tabletVSpaper).grid(row=2, column=2)
@@ -233,6 +231,9 @@ def main():
 	Radiobutton(frameUpL, variable=CKsimilarity, value = 0, text="Neutral").grid(row=5, column=2)
 	Radiobutton(frameUpL, variable=CKsimilarity, value = 1, text="Similar").grid(row=6, column=2)
 	Radiobutton(frameUpL, variable=CKsimilarity, value = 2, text="Complementary").grid(row=7, column=2)
+
+	Label(frameUpL, text="Personality").grid(row=8, column=2)
+
 
 #	bGo = Button(frameUpL, text='Go', command=launchSystem,state='normal')
 #	bGo.grid(row=1, column = 2)

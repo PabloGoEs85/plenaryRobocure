@@ -559,18 +559,47 @@ def scriptManager(): #manages the script
 #		print "No such behavior installed"	
 	#launches random quiz but keeps track of which
 	time.sleep(5)
-	finish = True
 
 #def sendQuestionnaire(request):
 
 #	return QuestionnaireResponse(entry1,entry2,entry3,entry4,entry5,entry6,entry7,entry8,entry9,entry10,entry11,entry12,entry13,entry14,entry15,flag,entryId)
 
 def main(session):
-
 	global finish
 	global profileFromAdapter
 	global flagFromAdapter
 	global quizFromGUI
+
+	def sendQuestionnaire(request):
+	
+		return QuestionnaireResponse(q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,quizFromGUI,0)
+	def startsSystem():
+		global flagFromAdapter
+		global profileFromAdapter
+		print "launches system"
+		rospy.wait_for_service('adapterPersonality')
+		try:
+			profileClient = rospy.ServiceProxy('adapterPersonality', Personality)
+			profile = profileClient()
+			profileFromAdapter = profile.personality_profile
+			flagFromAdapter = profile.flag_profile
+			print "Actuation got profile: %s"%profileFromAdapter
+		except rospy.ServiceException, e:
+			print "profile call failed: %s"%e
+
+		#thread to run idle behaviors
+		tIdle = threading.Thread(target=startIdle)
+		tIdle.start()
+		
+		#thread to receive tasks + finish flag from interface
+		tScript = threading.Thread(target=scriptManager)
+		tScript.start()
+
+		#thread to listen to sensory information
+		tSensorsWhile = threading.Thread(target=readSensors)
+		tSensorsWhile.start()
+
+
 	rospy.init_node('actuation')
 
 	rospy.wait_for_service('GUICommand') #controls script
@@ -586,48 +615,40 @@ def main(session):
 #			behaviorService.stopAllBehaviors()
 			behaviorService.runBehavior("personalityquiz-247837/behavior_1")
 			time.sleep(3)
-			while(behaviorService.isBehaviorRunning("personalityquiz-247837/behavior_1")):
+			#control if we have reached the end of the quiz
+			memoryService = session.service("ALMemory")
+			memoryService.insertData("PQFinish", 0)
+			stillRunningQuiz = memoryService.getData("PQFinish")
+
+			#reads variable PersonalityQuizFinished in memory, keeps reading until True
+			while (stillRunningQuiz == 0):
 			#	notFinished = True
 				print "still running"
 				time.sleep(3)
+				stillRunningQuiz = memoryService.getData("PQFinish")
+
 			print "finished"
-			#while(notFinished):
-			#	memoryService = session.service("ALMemory")
-				#read data from memory
-			#	for w in answers:			
-			#		if (answers[w] == 0):					
-			#			key = "q"+w
-			#			answers[w] = memoryService.getData("q1")
-#				vector with all the answers
-				#checks whether the last question has been answered. If yes, notFinished = False, otherwise, it starts over.
-				
+			memoryService.insertData("PQFinish", 0)
 			#reads info from memory and sends it back to gui
-			#srvActuationToGUIServer = rospy.Service('questionnaire', Questionnaire, sendQuestionnaire)
+			q1 = int(memoryService.getData("q1"))
+			q2 = int(memoryService.getData("q2"))
+			q3 = int(memoryService.getData("q3"))
+			q4 = int(memoryService.getData("q4"))
+			q5 = int(memoryService.getData("q5"))
+			q6 = int(memoryService.getData("q6"))
+			q7 = int(memoryService.getData("q7"))
+			q8 = int(memoryService.getData("q8"))
+			q9 = int(memoryService.getData("q9"))
+			q10 = int(memoryService.getData("q10"))
+			q11 = int(memoryService.getData("q11"))
+			q12 = int(memoryService.getData("q12"))
+
+			print "q1 %d" %q1
+			
+			srvActuationToGUIServer = rospy.Service('questionnaire', Questionnaire, sendQuestionnaire)
+			startsSystem()
 		elif (commandFromGUI == 2): #starts system
-			print "launches system"
-			rospy.wait_for_service('adapterPersonality')
-			try:
-				profileClient = rospy.ServiceProxy('adapterPersonality', Personality)
-				profile = profileClient()
-				profileFromAdapter = profile.personality_profile
-				flagFromAdapter = profile.flag_profile
-
-				print "Actuation got profile: %s"%profileFromAdapter
-
-			except rospy.ServiceException, e:
-				print "profile call failed: %s"%e
-
-			#thread to run idle behaviors
-#			tIdle = threading.Thread(target=startIdle)
-#			tIdle.start()
-		
-			#thread to receive tasks + finish flag from interface
-			tScript = threading.Thread(target=scriptManager)
-			tScript.start()
-
-			#thread to listen to sensory information
-#			tSensorsWhile = threading.Thread(target=readSensors)
-#			tSensorsWhile.start()
+			startsSystem()
 		elif (startCommandFromGUI == 3): #stops system
 			finish = True
 	except rospy.ServiceException, e:

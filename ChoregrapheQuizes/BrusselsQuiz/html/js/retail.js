@@ -113,6 +113,9 @@ function startFirstQuestion(){
 	document.getElementById("3").innerHTML=my_question.answers.a3;
 	document.getElementById("4").innerHTML=my_question.answers.a4;
 	document.getElementById("question-pic").src=my_question.img;
+//	session.service("ALAnimatedSpeech").done(function (tts){
+	//    tts.say(my_question.q);
+	//});
 }
 
 // ADVANCES IN THE QUESTIONS -------------------------------

@@ -65,31 +65,27 @@ def main():
 		question10 = 8-questionnaireToProfile.q10_response #A4*
 		question11 = questionnaireToProfile.q11_response #A5
 		question12 = questionnaireToProfile.q12_response #A6
+		personalityFromGUI = questionnaireToProfile.personality_response 
 		flag = questionnaireToProfile.flag_response
 
 	except rospy.ServiceException, e:
 		print "Service call failed: %s"%e
 
 
-	#testing purposes
-#	question1 = random.randint(1,5)
-#	question6 = 6-random.randint(1,5)
-#	question11 = random.randint(1,5)
-#	question5 = random.randint(1,5)
-#	question10 = 6-random.randint(1,5)
-#	question15 = random.randint(1,5)
-#	flag = random.randint(1,2)
-	#testing purposes
+	if (personalityFromGUI == 0):
+		#compute personality + send profile to actuation and reactive
+		extraversion = question1+question2+question3+question4+question5+question6
+	#	neuroticism = question2+ question7+question12
+	#	openness = question3+question8+question13
+	#	conscientiousness = question4+question9+question14
+		agreeableness = question7+question8+question9+question10+question11+question12
 
-	#compute personality + send profile to actuation and reactive
-	extraversion = question1+question2+question3+question4+question5+question6
-#	neuroticism = question2+ question7+question12
-#	openness = question3+question8+question13
-#	conscientiousness = question4+question9+question14
-	agreeableness = question7+question8+question9+question10+question11+question12
-
-#	personality = extraversion + neuroticism + openness + conscientiousness + agreeableness
-	personality = extraversion + agreeableness
+	#	personality = extraversion + neuroticism + openness + conscientiousness + agreeableness
+		personality = extraversion + agreeableness
+		print "extraversion %s"%extraversion
+		print "agreeableness %s"%agreeableness
+	else:
+		personality = personalityFromGUI
 	print "personality %s"%personality
 	print "flag %s"%flag
 
