@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="chocquiz-247841" version="0.0.0">
+<package uuid="testquiz-247840" version="0.0.0">
  <names>
-  <name lang="en_US">ChocQuiz</name>
+  <name lang="en_US">TestQuiz</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>

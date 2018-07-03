@@ -535,18 +535,13 @@ def startIdle():
 	setIdleBehavior(profileFromAdapter, finish)
 
 def scriptManager(): #manages the script
-	global finish
 	global quizFromGUI
-	global flagFromAdapter
-	firstQuiz = 0
-	secondQuiz = 0
-	thirdQuiz = 0
-	
-	if (flagFromAdapter == 0): #neutral
+
+	if (quizFromGUI == 0): #neutral
 			script = "brusselsquiz-247835/behavior_1"
-	elif (flagFromAdapter == 1): #similar
-			script = "chocquiz-247834/behavior_1"
-	elif (flagFromAdapter == 2): #complementary
+	elif (quizFromGUI == 1): #similar
+			script = "chocquiz-247841/behavior_1"
+	elif (quizFromGUI == 2): #complementary
 			script = "sportsquiz-247836/behavior_1"
 
 	print "Script Manager %d" %quizFromGUI

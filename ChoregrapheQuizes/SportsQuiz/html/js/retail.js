@@ -7,6 +7,8 @@ var startTime = "";
 // var LOVEnumber = 1;
 // var SUNnumber = 1;
 
+var session = new QiSession();
+
 // GO TO HOME FUNCTION -------------------------------------
 function goHome(){
 	questionCount = 0;
@@ -113,6 +115,11 @@ function startFirstQuestion(){
 	document.getElementById("3").innerHTML=my_question.answers.a3;
 	document.getElementById("4").innerHTML=my_question.answers.a4;
 	document.getElementById("question-pic").src=my_question.img;
+
+	session.service("ALAnimatedSpeech").done(function (tts){
+	    tts.say(my_question.q);
+	});
+
 }
 
 // ADVANCES IN THE QUESTIONS -------------------------------
@@ -148,6 +155,11 @@ function nextQuestion(){
 		document.getElementById("3").innerHTML=my_question.answers.a3;
 		document.getElementById("4").innerHTML=my_question.answers.a4;
 		document.getElementById("question-pic").src=my_question.img;
+
+		session.service("ALAnimatedSpeech").done(function (tts){
+			tts.say(my_question.q);
+		});
+
 	
 	} else {
 		showResults();
