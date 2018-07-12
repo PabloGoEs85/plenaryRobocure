@@ -582,6 +582,8 @@ def main(session):
 		except rospy.ServiceException, e:
 			print "profile call failed: %s"%e
 
+		memoryService = session.service("ALMemory")
+		memoryService.insertData("UserProfile", profileFromAdapter)
 		#thread to run idle behaviors
 		tIdle = threading.Thread(target=startIdle)
 		tIdle.start()

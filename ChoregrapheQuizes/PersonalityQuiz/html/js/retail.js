@@ -120,9 +120,6 @@ function startFirstQuestion(){
 	document.getElementById("6").innerHTML=my_question.answers.a6;
 	document.getElementById("7").innerHTML=my_question.answers.a7;
 
-	session.service("ALAnimatedSpeech").done(function (tts){
-	    tts.say(my_question.q);
-	});
 }
 
 // ADVANCES IN THE QUESTIONS -------------------------------
