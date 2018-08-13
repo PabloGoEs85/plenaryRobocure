@@ -201,14 +201,13 @@ function correctQuestion(my_answer){
 		correctAns+=1;
 		document.getElementById("feedback").innerHTML=my_question.good;
 		session.service("ALMemory").done(function (m) {
-            m.raiseEvent("QuestionQuiz", my_question.good);
-        });
+		    m.raiseEvent("QuestionQuiz", my_question.good);
+		});
 	} else {
 		document.getElementById("feedback").innerHTML=my_question.bad;
 		session.service("ALMemory").done(function (m) {
-            m.raiseEvent("QuestionQuiz", my_question.bad);
-        });
-		
+		    m.raiseEvent("QuestionQuiz", my_question.bad);
+		});
 	}
 		// ADD HERE TO SHOW THE CORRECT/WRONG ASNWER DETAILS (THE PHRASE FROM THE WORD)
 
@@ -230,9 +229,10 @@ function nextQuestion(){
 		document.getElementById("4").innerHTML=my_question.answers.a4;
 		document.getElementById("question-pic").src=my_question.img;
 
-        session.service("ALMemory").done(function (m) {
-            m.raiseEvent("QuestionQuiz", my_question.q);
-        });
+        
+		session.service("ALMemory").done(function (m) {
+		    m.raiseEvent("QuestionQuiz", my_question.q);
+		});
 		//session.service("ALAnimatedSpeech").done(function (tts){
 //		as.say(my_question.q);
 		//});

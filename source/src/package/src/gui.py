@@ -5,7 +5,7 @@ from package.srv import *
 
 def launchSystem():
 	global CKsimilarity
-	def sendQuestionnaire(request):
+	def sendQuestionnaire(request): #Gets responses from GUI and sends them to Adapter (including hard-coded personality)
 		global e1
 		global e2
 		global e3
@@ -61,7 +61,7 @@ def launchSystem():
 	#disables Q1 to Q15, CBtablet, CBsimilarity and ID
 	editEntries('disabled')
 
-	#launch system sending Q1 to Q15 and similarity flag --> to adapter - actuation? or some coordinator
+
 	if (paperBased):
 		#print "paperBased"
 		srvGUIAdapterServer = rospy.Service('questionnaire', Questionnaire, sendQuestionnaire)
@@ -142,15 +142,12 @@ def tabletVSpaper():
 	global paperBased
 
 	if (CBtablet.get()==1): #tablet --> launches personality quiz (via actuation?)
-		#print "quizzzz"
 		editEntries('disabled')
 		paperBased = False
 		tabletDone = False
-		#launchSystem()
 	elif (CBtablet.get()==2): #paper --> enables questions + similar/complementary + go button
 		paperBased = True	
 		editEntries('normal')
-		#print "paperrrr"
 	
 
 def main():	
@@ -171,7 +168,6 @@ def main():
 	global eID
 	global ePersonality
 
-#fileObject = open("GuiLog.txt","w")
 	rospy.init_node("gui")
 	window = Tk()
 	CKsimilarity = IntVar()
@@ -235,9 +231,6 @@ def main():
 	Label(frameUpL, text="Personality").grid(row=8, column=2)
 
 
-#	bGo = Button(frameUpL, text='Go', command=launchSystem,state='normal')
-#	bGo.grid(row=1, column = 2)
-		
 	frameDoR = Frame(window,width = int(0.2*widthScreen),height = int(0.2*heightScreen))
 	frameDoR.grid(row = 0, column = 1)
 	frameDoR.pack_propagate(False)
