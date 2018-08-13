@@ -340,7 +340,7 @@ def eyeBlinkingBehavior(profile):
 	
 	else:
 		threshold2 = random.random()
-		if(threshold2 > (0.5-(profile/10))): 
+		if(threshold2 > (0.5-(profile/5))): 
 			blinkMorphology()
 
 def readSensors():

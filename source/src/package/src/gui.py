@@ -45,9 +45,9 @@ def launchSystem():
 		global ePersonality
 		if(tabletDone):
 			command_response = 2 #start system
-			print "tabletDone"	
+			#print "tabletDone"	
 		else: 
-			print "tabletDone FALSE"
+			#print "tabletDone FALSE"
 			command_response = 1 #initiates personality quiz
 			#tabletDone = True
 		command_quiz = int(eID.get())
@@ -63,12 +63,12 @@ def launchSystem():
 
 	#launch system sending Q1 to Q15 and similarity flag --> to adapter - actuation? or some coordinator
 	if (paperBased):
-		print "paperBased"
+		#print "paperBased"
 		srvGUIAdapterServer = rospy.Service('questionnaire', Questionnaire, sendQuestionnaire)
 		tabletDone = True
 		srvGUIActuationServer = rospy.Service('GUICommand', GUICommand, sendCommand)
 	else: 
-		print "paperBased FALSE"
+		#print "paperBased FALSE"
 		tabletDone = False
 		srvGUIActuationServer = rospy.Service('GUICommand', GUICommand, sendCommand)
 		#then sets tabletDone = True and calls again
@@ -142,7 +142,7 @@ def tabletVSpaper():
 	global paperBased
 
 	if (CBtablet.get()==1): #tablet --> launches personality quiz (via actuation?)
-		print "quizzzz"
+		#print "quizzzz"
 		editEntries('disabled')
 		paperBased = False
 		tabletDone = False
@@ -150,7 +150,7 @@ def tabletVSpaper():
 	elif (CBtablet.get()==2): #paper --> enables questions + similar/complementary + go button
 		paperBased = True	
 		editEntries('normal')
-		print "paperrrr"
+		#print "paperrrr"
 	
 
 def main():	
