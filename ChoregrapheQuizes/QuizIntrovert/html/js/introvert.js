@@ -16,7 +16,7 @@
         "a4":"D) 2.6 million"
       }
     },
-    "q3":{
+    "q2":{
       "q":"Could you tell me how many communes integrate the Brussels-Capital Region?",
       "correct":3,
       "good":"You got it right. Well done.",
@@ -29,7 +29,7 @@
         "a4":"D) 32"
       }
     },
-    "q11":{
+    "q3":{
       "q":"Which of the following European Union institutions are headquartered in Brussels?",
       "correct":4,
       "good":"Very well done, that was not easy. ",
@@ -42,7 +42,7 @@
         "a4":"D) European Commission, European Parliament, Council of the EU"
       }
     },
-    "q13":{
+    "q4":{
       "q":"Could you tell me when Brussels was founded?",
       "correct":2,
       "good":"That is correct. It is a thousand years old.",
@@ -55,7 +55,7 @@
         "a4":"D) 1943"
       }
     },
-    "q14":{
+    "q5":{
       "q":"Would you mind to tell me the name of a very well-known festival hold in Brussels every year?",
       "correct":2,
       "good":"Indeed, it is the Iris Festival!",
@@ -68,7 +68,7 @@
         "a4":"D) Eyebrows Festival"
       }
     },
-    "q15":{
+    "q6":{
       "q":"Would you be able to tell me how many days of rain per year are there in Brussels?",
       "correct":3,
       "good":"Exactly! I recommend you to buy an umbrella if you don't have one.",
@@ -81,7 +81,7 @@
         "a4":"D) 310"
       }
     },
-    "q16":{
+    "q7":{
       "q":"Could you tell me which of the following is the largest group of foreign residents?",
       "correct":1,
       "good":"Exactly. They are the French",
@@ -94,7 +94,7 @@
         "a4":"D) Moroccan"
       }
     },
-    "q18":{
+    "q8":{
       "q":"Would you know how Brussels-Capital Region is ranked by population in the European Union?",
       "correct":3,
       "good":"Well done, you are right.",

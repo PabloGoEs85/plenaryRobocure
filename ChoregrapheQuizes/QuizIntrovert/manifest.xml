@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="brusselsquiz-247835" version="0.0.0">
+<package version="0.0.0" uuid="quizIntrovert-247889">
  <names>
-  <name lang="en_US">BrusselsQuiz</name>
+  <name lang="en_US">QuizIntrovert</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>

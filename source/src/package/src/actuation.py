@@ -70,11 +70,11 @@ def speak(text, profile):
         pitch = 1.1
     elif (profile == 1.0): #fully extrovert
         speed = 125
-        volume = 1.0
+        volume = 0.8
         pitch = 1.1
 
     try:
-        print("Saying... " + text)
+        #print("Saying... " + text)
         #sayAnimatedService = session.service("ALAnimatedSpeech")
         sayService = session.service("ALTextToSpeech")
 
@@ -82,7 +82,12 @@ def speak(text, profile):
         sayService.setParameter("speed",speed) #[50,400]
         #sayService.resetSpeed()
         sayService.setVolume(volume)
-        sayService.say(text)
+        sayAnimatedService = session.service("ALAnimatedSpeech")
+        if(profile == 1.0):
+            sayAnimatedService.say(text)
+        elif (profile == -1.0):
+            text = "^mode(disabled) "+text
+            sayAnimatedService.say (text)
 
         #sayAnimatedService.say("hey there, I'm a social robot")
 
@@ -551,9 +556,9 @@ def scriptManager(): #manages the script
     global quizFromGUI
     global profileFromAdapter
     if (quizFromGUI == 0): #Brussels
-        script = "brusselsquiz2-392469/behavior_1"
+        script = "quizExtrovert-247897/behavior_1"
     elif (quizFromGUI == 1): #Chocolate
-        script = "chocquiz-247841/behavior_1"
+        script = "quizIntrovert-247889/behavior_1"
     elif (quizFromGUI == 2): #WorldCup
         script = "sportsquiz-247836/behavior_1"
 

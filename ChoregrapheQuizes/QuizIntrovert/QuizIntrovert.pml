@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Package name="BrusselsQuiz2" format_version="4">
+<Package name="QuizIntrovert" format_version="4">
     <Manifest src="manifest.xml" />
     <BehaviorDescriptions>
         <BehaviorDescription name="behavior" src="behavior_1" xar="behavior.xar" />
@@ -39,13 +39,15 @@
         <File name="QUIZ-logo" src="html/img/QUIZ-logo.png" />
         <File name="index" src="html/index.html" />
         <File name="bootstrap.min" src="html/js/bootstrap.min.js" />
-        <File name="brussels" src="html/js/brussels.js" />
+        <File name="introvert" src="html/js/introvert.js" />
         <File name="jquery-3.2.1.min" src="html/js/jquery-3.2.1.min.js" />
         <File name="qrcode.min" src="html/js/qrcode.min.js" />
         <File name="retail" src="html/js/retail.js" />
     </Resources>
     <Topics />
-    <IgnoredPaths />
+    <IgnoredPaths>
+        <Path src=".metadata" />
+    </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />
     </Translations>

@@ -93,7 +93,7 @@ function saveTextAsFile(){
 //  GET 10 DIFFERENT RANDOM NUMBERS -------------------------
 function getRandomNumbers(){
 	while(randomNumbers.length < 3){
-    	var randomnumber = Math.ceil(Math.random()*20)
+    	var randomnumber = Math.ceil(Math.random()*8)
     	if(randomNumbers.indexOf(randomnumber) > -1) continue;
     	randomNumbers[randomNumbers.length] = randomnumber;
 	}
@@ -108,50 +108,12 @@ function noQuiz(){
 	document.getElementById("info").innerHTML=my_app.noquiz;	
 	document.getElementById("info-view").style.display="block";
 }
-function adaptingToUser(userProfile){
-	var speed;
-	var volume;
-	var pitch;
 
-	if (userProfile ==-1){
-		speed = 80;
-		volume = 0.5;
-		pitch = 0.8;
-	}
-	else if (userProfile == -0.5){
-		speed = 90;
-		volume = 0.6;
-		pitch = 0.8;
-	}
-	else if (userProfile == 0){
-		speed = 100;
-		volume = 1.0;
-		pitch = 0.9;
-	}
-	else if (userProfile == 0.5){
-		speed = 120;
-		volume = 1.0;
-		pitch = 1.1;
-	}
-	else if (userProfile == 1.0){
-		speed = 125;
-		volume = 1.0;
-		pitch = 1.1;
-	}
-
-	session.service("ALTextToSpeech").done(function (s) {
-	tts.setParameter("pitchShift",pitch);
-	tts.setParameter("speed",speed);
-	tts.setVolume(volume);
-	});
-
-}
 // STARTS THE QUIZ -----------------------------------------
 function startFirstQuestion(){
 	randomNumbers = getRandomNumbers();
 
-	//userProfile = mem.getData("UserProfile");
-	//adaptingToUser(userProfile);
+
 	document.getElementById("quiz-view").style.display="none";
 	document.getElementById("question-view").style.display="block";
 	
@@ -169,25 +131,7 @@ function startFirstQuestion(){
     session.service("ALMemory").done(function (m) {
         m.raiseEvent("QuestionQuiz", my_question.q);
     });
-    //memoryService = session.service("ALMemory")
 
-
-    //tts.say(my_question.q);
-
-	//session.service("ALAnimatedSpeech").done(function (tts){
-
-    //tts.say(my_question.q);
-//	var sentence = "\RSPD=";
-//	sentence.concat(speed.toString());
-//	sentence.concat("\ \VCT=");
-//	sentence.concat(pitch.toString());
-//	sentence.concat("\ ");
-///	sentence.concat(my_question.q);
-	
-	//mem.insertData("sentenceAS",sentence);
-
-	//as.say(sentence.toString());
-	//});
 }
 
 // ADVANCES IN THE QUESTIONS -------------------------------
@@ -233,11 +177,7 @@ function nextQuestion(){
         session.service("ALMemory").done(function (m) {
             m.raiseEvent("QuestionQuiz", my_question.q);
         });
-		//session.service("ALAnimatedSpeech").done(function (tts){
-//		as.say(my_question.q);
-		//});
 
-	
 	} else {
 		showResults();
 	}

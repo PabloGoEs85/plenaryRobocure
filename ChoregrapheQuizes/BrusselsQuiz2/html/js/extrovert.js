@@ -16,7 +16,7 @@
         "a4":"D) 2.6 million"
       }
     },
-    "q2":{
+    "q3":{
       "q":"How many communes are there in the Brussels-Capital Region?",
       "correct":3,
       "good":"We are doing it great!",
@@ -29,7 +29,7 @@
         "a4":"D) 32"
       }
     },
-    "q3":{
+    "q11":{
       "q":"Which EU institutions are based in Brussels?",
       "correct":4,
       "good":"Yes! What a good team we are!",
@@ -42,7 +42,7 @@
         "a4":"D) European Commission, European Parliament, Council of the EU"
       }
     },
-    "q4":{
+    "q13":{
       "q":"Do you know when Brussels was founded?",
       "correct":2,
       "good":"Yes! It is more than a thousand years old.",
@@ -55,7 +55,7 @@
         "a4":"D) 1943"
       }
     },
-    "q5":{
+    "q14":{
       "q":"Do you know the name of a very well-known festival celebrated in Brussels every year?",
       "correct":2,
       "good":"That's right. It seems to be quite fun!",
@@ -68,7 +68,7 @@
         "a4":"D) Eyebrows Festival"
       }
     },
-    "q6":{
+    "q15":{
       "q":"Do you how many rainy days per year are there in Brussels?",
       "correct":3,
       "good":"That is right! I hope you have an umbrella.",
@@ -81,7 +81,7 @@
         "a4":"D) 310"
       }
     },
-    "q7":{
+    "q16":{
       "q":"Do you know which is the largest group of foreigners in Brussels?",
       "correct":1,
       "good":"You are amazing! That is correct.",
@@ -94,7 +94,7 @@
         "a4":"D) Moroccan"
       }
     },
-    "q8":{
+    "q18":{
       "q":"Among all the capital cities in the EU, do you know how Brussels is ranked by population?",
       "correct":3,
       "good":"Yes! We got it right!",
