@@ -83,12 +83,43 @@ def speak(text, profile):
         #sayService.resetSpeed()
         sayService.setVolume(volume)
         sayAnimatedService = session.service("ALAnimatedSpeech")
-        if(profile == 1.0):
-            sayAnimatedService.say(text)
-        elif (profile == -1.0):
-            text = "^mode(disabled) "+text
-            sayAnimatedService.say (text)
 
+        aux = round(7*random.random ())
+        if(profile == 1.0): #extrovert
+            if(aux == 1.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_1"
+            elif (aux == 2.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_2"
+            elif (aux == 3.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_3"
+            elif (aux == 4.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_4"
+            elif (aux == 5.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_5"
+            elif (aux == 6.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_13"
+            else:
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_14"
+
+        elif (profile == -1.0):#introvert
+            if (aux == 1.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_6"
+            elif (aux == 2.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_7"
+            elif (aux == 3.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_8"
+            elif (aux == 4.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_9"
+            elif (aux == 5.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_10"
+            elif (aux == 6.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_11"
+            else:
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_12"
+
+        text = "^start(" + behavior + ") " + text
+        sayAnimatedService.say (text)
+        print(text)
         #sayAnimatedService.say("hey there, I'm a social robot")
 
         robotSpeaks = True
@@ -105,7 +136,7 @@ def idleMotion(profile, finish):
         motion_service.setIdlePostureEnabled("Arms", False)
         motion_service.setIdlePostureEnabled("Head", False)
     else:
-        aux = random.random()
+
         if(profile == -1.0): #fully introvert
             print "idleMotion fully introvert. Breath"
             motion_service.setBreathEnabled("Body", False)
@@ -246,7 +277,7 @@ def facialExpression(emotionId, profile):
         facialExpressionService.setIntensity("FaceLeds",1)
         facialExpressionService.fadeRGB("FaceLeds", colorLed, 2)
         wait = 2
-    time.sleep(wait)
+    #time.sleep(wait)
     colorLed = "white"
     facialExpressionService.fadeRGB("FaceLeds", colorLed, 1)
     eyeBlinkingBehavior(profile) #as face expression has changed, it needs to update that info
@@ -541,31 +572,36 @@ def startIdle():
 
 def readMemoryEventsFromQuiz(profile):
     memoryEventsService = session.service("ALMemory")
+    memoryEventsService.raiseEvent ("QuestionQuiz", "")
+    #memoryEventsService.raiseEvent ("FaceFeedback", "0")
     newSentence = memoryEventsService.getData ("QuestionQuiz")
+    #speak (newSentence, profile)
     previousSentence = newSentence
-    print "Gotten from memory " + newSentence
+    #print "Gotten from memory " + newSentence
     while(True):
         newSentence = memoryEventsService.getData ("QuestionQuiz")
         if (newSentence != previousSentence):
             print "Gotten from memory " + newSentence
             speak(newSentence,profile)
             previousSentence = newSentence
+        #newColorFace = int(memoryEventsService.getData("FaceFeedback"))
+        #facialExpression(newColorFace,profile)
 
 
 def scriptManager(): #manages the script
     global quizFromGUI
     global profileFromAdapter
     if (quizFromGUI == 0): #Brussels
-        script = "quizExtrovert-247897/behavior_1"
+        script = "quizExtrovert2-247899/behavior_1"
     elif (quizFromGUI == 1): #Chocolate
-        script = "quizIntrovert-247889/behavior_1"
+        script = "quizIntrovert2-247898/behavior_1"
     elif (quizFromGUI == 2): #WorldCup
         script = "sportsquiz-247836/behavior_1"
 
     print "Script Manager %d" %quizFromGUI
     behaviorService = session.service("ALBehaviorManager")
     behaviorService.runBehavior(script)
-    time.sleep(5)
+    #time.sleep(5)
     #memoryEventsService = session.service ("ALMemory")
     #newSentence = memoryEventsService.getData ("QuestionQuiz")
     #print "Gotten from memory " + newSentence

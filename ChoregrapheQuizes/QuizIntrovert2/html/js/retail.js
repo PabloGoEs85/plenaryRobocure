@@ -7,7 +7,6 @@ var startTime = "";
 var session = new QiSession();
 
 var mem;
-var facial;
 session.service("ALMemory").done(function (m) {
   mem = m;
 });
@@ -16,9 +15,6 @@ session.service("ALAnimatedSpeech").done(function (s){
 });
 session.service("ALTextToSpeech").done(function (ss) {
 	tts = ss;
-});
-session.service("ALLeds").done(function (fe) {
-	facial = fe;
 });
 var userProfile;
 var parameters;
@@ -117,6 +113,7 @@ function noQuiz(){
 function startFirstQuestion(){
 	randomNumbers = getRandomNumbers();
 
+
 	document.getElementById("quiz-view").style.display="none";
 	document.getElementById("question-view").style.display="block";
 	
@@ -128,6 +125,8 @@ function startFirstQuestion(){
 	document.getElementById("3").innerHTML=my_question.answers.a3;
 	document.getElementById("4").innerHTML=my_question.answers.a4;
 	document.getElementById("question-pic").src=my_question.img;
+
+
 
     session.service("ALMemory").done(function (m) {
         m.raiseEvent("QuestionQuiz", my_question.q);
@@ -147,17 +146,13 @@ function correctQuestion(my_answer){
 		document.getElementById("feedback").innerHTML=my_question.good;
 		session.service("ALMemory").done(function (m) {
             m.raiseEvent("QuestionQuiz", my_question.good);
-            m.raiseEvent("FaceFeedback","1");
         });
-
-
 	} else {
 		document.getElementById("feedback").innerHTML=my_question.bad;
 		session.service("ALMemory").done(function (m) {
             m.raiseEvent("QuestionQuiz", my_question.bad);
-            m.raiseEvent("FaceFeedback","4");
         });
-
+		
 	}
 		// ADD HERE TO SHOW THE CORRECT/WRONG ASNWER DETAILS (THE PHRASE FROM THE WORD)
 
