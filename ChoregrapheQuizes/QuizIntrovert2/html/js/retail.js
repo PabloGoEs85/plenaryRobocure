@@ -146,6 +146,7 @@ function correctQuestion(my_answer){
 		document.getElementById("feedback").innerHTML=my_question.good;
 		session.service("ALMemory").done(function (m) {
             m.raiseEvent("QuestionQuiz", my_question.good);
+            m.raiseEvent("FaceFeedback","1");
         });
 	} else {
 		document.getElementById("feedback").innerHTML=my_question.bad;
@@ -176,6 +177,7 @@ function nextQuestion(){
 
         session.service("ALMemory").done(function (m) {
             m.raiseEvent("QuestionQuiz", my_question.q);
+            m.raiseEvent("FaceFeedback","0");
         });
 
 	} else {

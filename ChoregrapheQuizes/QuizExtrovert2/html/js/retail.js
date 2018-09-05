@@ -181,6 +181,7 @@ function nextQuestion(){
 
         session.service("ALMemory").done(function (m) {
             m.raiseEvent("QuestionQuiz", my_question.q);
+            m.raiseEvent("FaceFeedback","0");
         });
 
 	} else {

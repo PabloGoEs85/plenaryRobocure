@@ -55,21 +55,21 @@ def speak(text, profile):
     if (profile ==-1.0): #fully introvert
         speed = 80
         volume = 0.5
-        pitch = 0.8
+        pitch = 0.9
     elif (profile == -0.5): #slightly introvert
         speed = 90
         volume = 0.6
-        pitch = 0.8
-    elif (profile == 0.0): #ambivert
-        speed = 100
-        volume = 1.0
         pitch = 0.9
+    elif (profile == 0.0): #ambivert
+        speed = 95
+        volume = 0.65
+        pitch = 1.0
     elif (profile == 0.5): #slightly extrovert
-        speed = 120
-        volume = 1.0
-        pitch = 1.1
+        speed = 102
+        volume = 0.72
+        pitch = 1.0
     elif (profile == 1.0): #fully extrovert
-        speed = 125
+        speed = 110
         volume = 0.8
         pitch = 1.1
 
@@ -78,8 +78,8 @@ def speak(text, profile):
         #sayAnimatedService = session.service("ALAnimatedSpeech")
         sayService = session.service("ALTextToSpeech")
 
-        sayService.setParameter("pitchShift",pitch) #[1,4]
-        sayService.setParameter("speed",speed) #[50,400]
+        sayService.setParameter("pitchShift",pitch) 
+        sayService.setParameter("speed",speed)
         #sayService.resetSpeed()
         sayService.setVolume(volume)
         sayAnimatedService = session.service("ALAnimatedSpeech")
@@ -181,7 +181,7 @@ def attentionTracker(profile, finish):
             awarenessService.setStimulusDetectionEnabled("Sound",False)
             awarenessService.setStimulusDetectionEnabled("Movement",False)
             awarenessService.setStimulusDetectionEnabled("NavigationMotion",False)
-            awarenessService.setStimulusDetectionEnabled("TabletTouch",True)
+            awarenessService.setStimulusDetectionEnabled("TabletTouch",False)
             awarenessService.setStimulusDetectionEnabled("Touch",True)
             awarenessService.setStimulusDetectionEnabled("People",True)
             awarenessService.setEngagementMode("FullyEngaged")
@@ -231,7 +231,7 @@ def attentionTracker(profile, finish):
             awarenessService.setStimulusDetectionEnabled("Sound",True)
             awarenessService.setStimulusDetectionEnabled("Movement",True)
             awarenessService.setStimulusDetectionEnabled("NavigationMotion",True)
-            awarenessService.setStimulusDetectionEnabled("TabletTouch",True)
+            awarenessService.setStimulusDetectionEnabled("TabletTouch",False)
             awarenessService.setStimulusDetectionEnabled("Touch",True)
             awarenessService.setStimulusDetectionEnabled("People",True)
             awarenessService.setEngagementMode("Unengaged")
@@ -573,19 +573,27 @@ def startIdle():
 def readMemoryEventsFromQuiz(profile):
     memoryEventsService = session.service("ALMemory")
     memoryEventsService.raiseEvent ("QuestionQuiz", "")
-    #memoryEventsService.raiseEvent ("FaceFeedback", "0")
+    memoryEventsService.raiseEvent ("FaceFeedback", "0")
     newSentence = memoryEventsService.getData ("QuestionQuiz")
+    newColorFace = memoryEventsService.getData ("FaceFeedback")
     #speak (newSentence, profile)
     previousSentence = newSentence
+    previousColorFace = newColorFace
     #print "Gotten from memory " + newSentence
     while(True):
+        newColorFace = memoryEventsService.getData ("FaceFeedback")
+        if (newColorFace != previousColorFace):
+            print
+            "color face" + newColorFace
+            facialExpression (int (newColorFace), profile)
+            previousColorFace = newColorFace
+
         newSentence = memoryEventsService.getData ("QuestionQuiz")
         if (newSentence != previousSentence):
             print "Gotten from memory " + newSentence
             speak(newSentence,profile)
             previousSentence = newSentence
-        #newColorFace = int(memoryEventsService.getData("FaceFeedback"))
-        #facialExpression(newColorFace,profile)
+
 
 
 def scriptManager(): #manages the script
