@@ -47,6 +47,37 @@ from package.srv import *
 #		moveService.stopMove()
 #	except Exception, e:
 #		print "Error occured: ", e
+def proxemics(profile, peopleZone1, peopleZone2, peopleZone3):
+
+    moveService = session.service("ALMotion")
+    proxemicsService = session.service ("ALMemory")
+
+    if(profile == -1.0):
+        if (len (peopleZone1) > 0):
+            #idZone1 = str (peopleZone1[0])
+
+            #coordsId1 = proxemicsService.getData ("PeoplePerception/Person/" + idZone1 + "/PositionInRobotFrame")
+
+            x = -0.15
+            y = 0.0
+            theta = 0.0
+
+            moveService.moveTo(x, y, theta)
+
+    elif(profile == 1.0):
+        if (len (peopleZone1) == 0 ):
+            if (len (peopleZone2) == 0 ):
+                if (len (peopleZone3) > 0 ):
+                    idZone3 = str (peopleZone3[0])
+
+                    coordsId3 = proxemicsService.getData ("PeoplePerception/Person/" + idZone3 + "/PositionInRobotFrame")
+
+                    x = 0.2
+                    y = (float)(coordsId3[1])/2
+
+                    theta = 0.0
+                    moveService.moveTo(x, y, theta)
+
 
 
 #speaks with animations
@@ -78,7 +109,7 @@ def speak(text, profile):
         #sayAnimatedService = session.service("ALAnimatedSpeech")
         sayService = session.service("ALTextToSpeech")
 
-        sayService.setParameter("pitchShift",pitch) 
+        sayService.setParameter("pitchShift",pitch)
         sayService.setParameter("speed",speed)
         #sayService.resetSpeed()
         sayService.setVolume(volume)
@@ -166,6 +197,12 @@ def idleMotion(profile, finish):
 
 #tracks attention
 def attentionTracker(profile, finish):
+    #trackerService = session.service ("ALTracker")
+    #targetName = "Face"
+    #faceWidth = 0.1
+    #trackerService.registerTarget (targetName, faceWidth)
+    #trackerService.track (targetName)
+
     awarenessService = session.service("ALBasicAwareness")
     if (finish == True):
         print "finishing attentionTracker"
@@ -236,6 +273,8 @@ def attentionTracker(profile, finish):
             awarenessService.setStimulusDetectionEnabled("People",True)
             awarenessService.setEngagementMode("Unengaged")
             awarenessService.setTrackingMode("BodyRotation")
+            #awarenessService.setTrackingMode ("MoveContextually")
+            #trackerService.setMode("move")
         awarenessService.setEnabled(True)
 
 
@@ -379,125 +418,148 @@ def eyeBlinkingBehavior(profile):
         if(threshold2 > (0.5-(profile/5))):
             blinkMorphology()
 
+
+
+def whenTouched(bodyPart): #associates a gesture to the touched body part
+    facialExpression(1,profileFromAdapter) #happy face
+    gesturesService = session.service ("ALBehaviorManager")
+    if (bodyPart ==1): #left bumper
+        if (profileFromAdapter > -0.1):
+            aux = random.random()
+            if (aux < 0.33):
+                gesture = "Stand/Gestures/BowShort_2"
+            elif (aux < 0.66):
+                gesture = "Stand/Gestures/BowShort_1"
+            else:
+                gesture = "Stand/Gestures/BowShort_3"
+        else:
+            aux2 = random.random()
+            if (aux2 < 0.5):
+                gesture = "Stand/Gestures/BowShort_1"
+            else:
+                gesture = "Stand/Gestures/BowShort_3"
+
+    elif (bodyPart ==2): #right bumper
+        if (profileFromAdapter > -0.1):
+            aux = random.random()
+            if (aux < 0.25):
+                gesture = "Stand/Gestures/BowShort_2"
+            elif (aux < 0.5):
+                gesture = "Stand/Gestures/BowShort_1"
+            elif (aux < 0.75):
+                gesture = "Stand/Reactions/SeeSomething_8"
+            else:
+                gesture = "Stand/Gestures/BowShort_3"
+        else:
+            aux2 = random.random()
+            if (aux2 < 0.5):
+                gesture = "Stand/Gestures/BowShort_1"
+            else:
+                gesture = "Stand/Gestures/BowShort_3"
+
+    elif (bodyPart == 3): #head
+        if (profileFromAdapter > 0.1):
+            aux = random.random()
+            if (aux < 0.25):
+                gesture = "Stand/Reactions/TouchHead_1"
+            elif (aux < 0.5):
+                gesture = "Stand/Reactions/TouchHead_2"
+            elif (aux < 0.75):
+                gesture = "Stand/Reactions/TouchHead_3"
+            else:
+                gesture = "Stand/Reactions/TouchHead_4"
+        elif (profileFromAdapter > -0.6):
+            aux2 = random.random()
+            if (aux2 < 0.33):
+                gesture = "Stand/Emotions/Negative/Surprise_1"
+            elif (aux2 < 0.66):
+                gesture = "Stand/Emotions/Neutral/Innocent_1"
+            else:
+                gesture = "Stand/Emotions/Negative/Surprise_2"
+        else:
+            aux2 = random.random()
+            if (aux2 < 0.33):
+                gesture = "Stand/Emotions/Neutral/Embarrassed_1"
+            elif (aux2 < 0.66):
+                gesture = "Stand/Emotions/Negative/Hurt_2"
+            else:
+                gesture = "Stand/Emotions/Positive/Shy_1"
+    elif (bodyPart == 4): #left hand
+        if (profileFromAdapter < 0.1):
+            aux2 = random.random()
+            if (aux2 < 0.5):
+                gesture = "Stand/Reactions/SeeSomething_5"
+            else:
+                gesture = "Stand/BodyTalk/Listening/Listening_6"
+        else:
+            aux2 = random.random()
+            if (aux2 < 0.5):
+                gesture = "Stand/BodyTalk/Listening/Listening_1"
+            else:
+                gesture = "Stand/BodyTalk/Listening/Listening_6"
+
+    elif (bodyPart == 5): #right hand
+        if (profileFromAdapter > -0.1):
+            aux2 = random.random()
+            if (aux2 < 0.33):
+                gesture = "Stand/BodyTalk/Listening/Listening_2"
+            elif (aux2 < 0.66):
+                gesture = "Stand/Reactions/SeeSomething_4"
+            else:
+                gesture = "Stand/BodyTalk/Listening/Listening_6"
+
+        elif (profileFromAdapter > -0.9):
+            aux2 = random.random()
+            if (aux2 < 0.33):
+                gesture = "Stand/Reactions/SeeSomething_5"
+            elif(aux2 < 0.66):
+                gesture = "Stand/BodyTalk/Listening/Listening_5"
+            else:
+                gesture = "Stand/BodyTalk/Listening/Listening_6"
+        else:
+            aux2 = random.random()
+            if (aux2 < 0.5):
+                gesture = "Stand/Reactions/SeeSomething_6"
+            else:
+                gesture = "Stand/BodyTalk/Listening/Listening_6"
+
+    result = gesturesService.runBehavior(gesture)
+    if (result == False):
+        print "running gesture failed"
+
+    facialExpression(0,profileFromAdapter)
+
+
 def readSensors():
     global finish
     global profileFromAdapter
-    def whenTouched(bodyPart): #associates a gesture to the touched body part
-        facialExpression(1,profileFromAdapter) #happy face
 
-        if (bodyPart ==1): #left bumper
-            if (profileFromAdapter > -0.1):
-                aux = random.random()
-                if (aux < 0.33):
-                    gesture = "Stand/Gestures/BowShort_2"
-                elif (aux < 0.66):
-                    gesture = "Stand/Gestures/BowShort_1"
-                else:
-                    gesture = "Stand/Gestures/BowShort_3"
-            else:
-                aux2 = random.random()
-                if (aux2 < 0.5):
-                    gesture = "Stand/Gestures/BowShort_1"
-                else:
-                    gesture = "Stand/Gestures/BowShort_3"
+    peopleService = session.service("ALPeoplePerception")
+    peopleService.subscribe("forPeople")
 
-        elif (bodyPart ==2): #right bumper
-            if (profileFromAdapter > -0.1):
-                aux = random.random()
-                if (aux < 0.25):
-                    gesture = "Stand/Gestures/BowShort_2"
-                elif (aux < 0.5):
-                    gesture = "Stand/Gestures/BowShort_1"
-                elif (aux < 0.75):
-                    gesture = "Stand/Reactions/SeeSomething_8"
-                else:
-                    gesture = "Stand/Gestures/BowShort_3"
-            else:
-                aux2 = random.random()
-                if (aux2 < 0.5):
-                    gesture = "Stand/Gestures/BowShort_1"
-                else:
-                    gesture = "Stand/Gestures/BowShort_3"
+    engagementService = session.service("ALEngagementZones")
+    engagementService.subscribe("forEngagement")
 
-        elif (bodyPart == 3): #head
-            if (profileFromAdapter > 0.1):
-                aux = random.random()
-                if (aux < 0.25):
-                    gesture = "Stand/Reactions/TouchHead_1"
-                elif (aux < 0.5):
-                    gesture = "Stand/Reactions/TouchHead_2"
-                elif (aux < 0.75):
-                    gesture = "Stand/Reactions/TouchHead_3"
-                else:
-                    gesture = "Stand/Reactions/TouchHead_4"
-            elif (profileFromAdapter > -0.6):
-                aux2 = random.random()
-                if (aux2 < 0.33):
-                    gesture = "Stand/Emotions/Negative/Surprise_1"
-                elif (aux2 < 0.66):
-                    gesture = "Stand/Emotions/Neutral/Innocent_1"
-                else:
-                    gesture = "Stand/Emotions/Negative/Surprise_2"
-            else:
-                aux2 = random.random()
-                if (aux2 < 0.33):
-                    gesture = "Stand/Emotions/Neutral/Embarrassed_1"
-                elif (aux2 < 0.66):
-                    gesture = "Stand/Emotions/Negative/Hurt_2"
-                else:
-                    gesture = "Stand/Emotions/Positive/Shy_1"
-        elif (bodyPart == 4): #left hand
-            if (profileFromAdapter < 0.1):
-                aux2 = random.random()
-                if (aux2 < 0.5):
-                    gesture = "Stand/Reactions/SeeSomething_5"
-                else:
-                    gesture = "Stand/BodyTalk/Listening/Listening_6"
-            else:
-                aux2 = random.random()
-                if (aux2 < 0.5):
-                    gesture = "Stand/BodyTalk/Listening/Listening_1"
-                else:
-                    gesture = "Stand/BodyTalk/Listening/Listening_6"
+    engagementService.setFirstLimitDistance(0.4)
+    engagementService.setSecondLimitDistance(1.2)
+    engagementService.setLimitAngle(30)
 
-        elif (bodyPart == 5): #right hand
-            if (profileFromAdapter > -0.1):
-                aux2 = random.random()
-                if (aux2 < 0.33):
-                    gesture = "Stand/BodyTalk/Listening/Listening_2"
-                elif (aux2 < 0.66):
-                    gesture = "Stand/Reactions/SeeSomething_4"
-                else:
-                    gesture = "Stand/BodyTalk/Listening/Listening_6"
 
-            elif (profileFromAdapter > -0.9):
-                aux2 = random.random()
-                if (aux2 < 0.33):
-                    gesture = "Stand/Reactions/SeeSomething_5"
-                elif(aux2 < 0.66):
-                    gesture = "Stand/BodyTalk/Listening/Listening_5"
-                else:
-                    gesture = "Stand/BodyTalk/Listening/Listening_6"
-            else:
-                aux2 = random.random()
-                if (aux2 < 0.5):
-                    gesture = "Stand/Reactions/SeeSomething_6"
-                else:
-                    gesture = "Stand/BodyTalk/Listening/Listening_6"
-
-        result = gesturesService.runBehavior(gesture)
-        if (result == False):
-            print "running gesture failed"
-
-        facialExpression(0,profileFromAdapter)
     try:
         memoryService = session.service("ALMemory")
+        #memoryService.raiseEvent("EngagementZones/PersonApproached", "")
+        #memoryService.raiseEvent("EngagementZones/PersonMovedAway", "")
 
     except Exception:
         print "Error when creating memory proxy:"
-    gesturesService = session.service("ALBehaviorManager")
+
     while (not finish):
-        time.sleep(1)
+
+        someoneZone1 = memoryService.getData("EngagementZones/PeopleInZone1")
+        someoneZone2 = memoryService.getData("EngagementZones/PeopleInZone2")
+        someoneZone3 = memoryService.getData("EngagementZones/PeopleInZone3")
+        proxemics (profileFromAdapter, someoneZone1, someoneZone2, someoneZone3)
+
         leftBumperTouched = 0
         leftBumperTouched = memoryService.getData("LeftBumperPressed")
         if (leftBumperTouched > 0.5):
