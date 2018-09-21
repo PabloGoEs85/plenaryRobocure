@@ -132,6 +132,22 @@ def speak(text, profile):
             else:
                 behavior = "Stand/BodyTalk/Speaking/BodyTalk_14"
 
+        elif (profile == 0.0):  # ambivert
+            if (aux == 1.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_6"
+            elif (aux == 2.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_2"
+            elif (aux == 3.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_8"
+            elif (aux == 4.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_4"
+            elif (aux == 5.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_10"
+            elif (aux == 6.0):
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_13"
+            else:
+                behavior = "Stand/BodyTalk/Speaking/BodyTalk_12"
+
         elif (profile == -1.0):#introvert
             if (aux == 1.0):
                 behavior = "Stand/BodyTalk/Speaking/BodyTalk_6"
@@ -237,16 +253,17 @@ def attentionTracker(profile, finish):
             awarenessService.setTrackingMode("BodyRotation")
         elif (profile == 0.0): #Ambivert
             print "attentionTracker ambivert"
-            awarenessService.setParameter("LookStimulusSpeed",0.5)
-            awarenessService.setParameter("LookBackSpeed",0.5)
-            awarenessService.setStimulusDetectionEnabled("Sound",True)
-            awarenessService.setStimulusDetectionEnabled("Movement",True)
-            awarenessService.setStimulusDetectionEnabled("NavigationMotion",False)
-            awarenessService.setStimulusDetectionEnabled("TabletTouch",True)
-            awarenessService.setStimulusDetectionEnabled("Touch",True)
-            awarenessService.setStimulusDetectionEnabled("People",True)
-            awarenessService.setEngagementMode("SemiEngaged")
-            awarenessService.setTrackingMode("BodyRotation")
+            awarenessService.resetAllParameters()
+            #awarenessService.setParameter("LookStimulusSpeed",0.5)
+            #awarenessService.setParameter("LookBackSpeed",0.5)
+            #awarenessService.setStimulusDetectionEnabled("Sound",True)
+            #awarenessService.setStimulusDetectionEnabled("Movement",True)
+            #awarenessService.setStimulusDetectionEnabled("NavigationMotion",False)
+            awarenessService.setStimulusDetectionEnabled("TabletTouch",False)
+            #awarenessService.setStimulusDetectionEnabled("Touch",True)
+            #awarenessService.setStimulusDetectionEnabled("People",True)
+            #awarenessService.setEngagementMode("SemiEngaged")
+            #awarenessService.setTrackingMode("BodyRotation")
 
         elif (profile == 0.5): #Slighlty Extrovert
             print "attentionTracker slighlty extrovert"
@@ -540,8 +557,8 @@ def readSensors():
     engagementService = session.service("ALEngagementZones")
     engagementService.subscribe("forEngagement")
 
-    engagementService.setFirstLimitDistance(0.4)
-    engagementService.setSecondLimitDistance(1.2)
+    engagementService.setFirstLimitDistance(0.3)
+    engagementService.setSecondLimitDistance(2)
     engagementService.setLimitAngle(30)
 
 
@@ -666,7 +683,7 @@ def scriptManager(): #manages the script
     elif (quizFromGUI == 1): #Chocolate
         script = "quizIntrovert2-247898/behavior_1"
     elif (quizFromGUI == 2): #WorldCup
-        script = "sportsquiz-247836/behavior_1"
+        script = "quizNeutral-247555/behavior_1"
 
     print "Script Manager %d" %quizFromGUI
     behaviorService = session.service("ALBehaviorManager")
