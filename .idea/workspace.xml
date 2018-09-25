@@ -2,54 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfb77dbb-bc97-4731-88ec-3654b33b504b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/.metadata" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/QuizNeutral.pml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/behavior_1/behavior.xar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/css/bootstrap.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/css/bootstrap.min.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/css/retail.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/12.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/13.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/14.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/15.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/16.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/17.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/18.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/19.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/20.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/img/QUIZ-logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/js/jquery-3.2.1.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/js/neutral.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/js/qrcode.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/html/js/retail.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/manifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ChoregrapheQuizes/QuizNeutral/translations/translation_en_US.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/containers/GUI/source.tar" beforeDir="false" afterPath="$PROJECT_DIR$/containers/GUI/source.tar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/containers/actuation/launch.sh" beforeDir="false" afterPath="$PROJECT_DIR$/containers/actuation/launch.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/containers/actuation/source.tar" beforeDir="false" afterPath="$PROJECT_DIR$/containers/actuation/source.tar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/containers/adapter/source.tar" beforeDir="false" afterPath="$PROJECT_DIR$/containers/adapter/source.tar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/src/package/src/actuation.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/package/src/actuation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -99,7 +54,7 @@
           <entry key="html" value="73" />
           <entry key="js" value="2348" />
           <entry key="pml" value="27" />
-          <entry key="py" value="3690" />
+          <entry key="py" value="3751" />
           <entry key="sh" value="17" />
           <entry key="xml" value="72" />
           <entry key="yaml" value="17" />
@@ -110,7 +65,7 @@
           <entry key="HTML" value="73" />
           <entry key="JavaScript" value="2348" />
           <entry key="PLAIN_TEXT" value="44" />
-          <entry key="Python" value="3690" />
+          <entry key="Python" value="3751" />
           <entry key="XML" value="72" />
           <entry key="YAML" value="17" />
         </counts>
@@ -123,15 +78,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/src/package/src/actuation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="658">
-              <caret line="261" column="76" selection-start-line="261" selection-start-column="76" selection-end-line="261" selection-end-column="76" />
+            <state relative-caret-position="216">
+              <caret line="559" column="47" selection-start-line="559" selection-start-column="47" selection-end-line="559" selection-end-column="47" />
               <folding>
                 <element signature="e#55#67#0" expanded="true" />
                 <element signature="e#12617#16174#0" />
                 <element signature="e#23168#24121#0" />
-                <marker date="1537543621570" expanded="true" signature="1156:2080" ph="..." />
-                <marker date="1537543621570" expanded="true" signature="17358:17406" ph="..." />
-                <marker date="1537543621570" expanded="true" signature="25723:25743" ph="..." />
+                <marker date="1537608584779" expanded="true" signature="1156:2164" ph="..." />
+                <marker date="1537608584779" expanded="true" signature="17442:17490" ph="..." />
+                <marker date="1537608584779" expanded="true" signature="25807:25827" ph="..." />
               </folding>
             </state>
           </provider>
@@ -584,15 +539,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/src/package/src/actuation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="261" column="76" selection-start-line="261" selection-start-column="76" selection-end-line="261" selection-end-column="76" />
+        <state relative-caret-position="216">
+          <caret line="559" column="47" selection-start-line="559" selection-start-column="47" selection-end-line="559" selection-end-column="47" />
           <folding>
             <element signature="e#55#67#0" expanded="true" />
             <element signature="e#12617#16174#0" />
             <element signature="e#23168#24121#0" />
-            <marker date="1537543621570" expanded="true" signature="1156:2080" ph="..." />
-            <marker date="1537543621570" expanded="true" signature="17358:17406" ph="..." />
-            <marker date="1537543621570" expanded="true" signature="25723:25743" ph="..." />
+            <marker date="1537608584779" expanded="true" signature="1156:2164" ph="..." />
+            <marker date="1537608584779" expanded="true" signature="17442:17490" ph="..." />
+            <marker date="1537608584779" expanded="true" signature="25807:25827" ph="..." />
           </folding>
         </state>
       </provider>

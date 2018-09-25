@@ -71,7 +71,7 @@ def proxemics(profile, peopleZone1, peopleZone2, peopleZone3):
                     idZone3 = str (peopleZone3[0])
 
                     coordsId3 = proxemicsService.getData ("PeoplePerception/Person/" + idZone3 + "/PositionInRobotFrame")
-
+                    #moveService.setExternalCollisionProtectionEnabled("Move",False)
                     x = 0.2
                     y = (float)(coordsId3[1])/2
 
@@ -290,7 +290,7 @@ def attentionTracker(profile, finish):
             awarenessService.setStimulusDetectionEnabled("People",True)
             awarenessService.setEngagementMode("Unengaged")
             awarenessService.setTrackingMode("BodyRotation")
-            #awarenessService.setTrackingMode ("MoveContextually")
+            awarenessService.setTrackingMode("MoveContextually")
             #trackerService.setMode("move")
         awarenessService.setEnabled(True)
 
@@ -330,8 +330,8 @@ def facialExpression(emotionId, profile):
         facialExpressionService.fadeRGB("FaceLeds", colorLed, 1.75)
         wait = 1.5
     elif(profile == 1.0): #fully extrovert
-        facialExpressionService.setIntensity("FaceLeds",1)
-        facialExpressionService.fadeRGB("FaceLeds", colorLed, 2)
+        facialExpressionService.setIntensity("FaceLeds",0.2)
+        facialExpressionService.fadeRGB("FaceLeds", colorLed, 1)
         wait = 2
     #time.sleep(wait)
     colorLed = "white"
@@ -557,7 +557,7 @@ def readSensors():
     engagementService = session.service("ALEngagementZones")
     engagementService.subscribe("forEngagement")
 
-    engagementService.setFirstLimitDistance(0.3)
+    engagementService.setFirstLimitDistance(0.5)
     engagementService.setSecondLimitDistance(2)
     engagementService.setLimitAngle(30)
 
